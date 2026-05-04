@@ -1,0 +1,21 @@
+{
+  "name": "@sauc-e/fingerprint-manager",
+  "version": "1.0.0",
+  "description": "Shared device fingerprinting library for SAUC-E apps",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+}
