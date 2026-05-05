@@ -26,7 +26,7 @@ export class FingerprintManager {
    * Get the device fingerprint.
    * Returns existing fingerprint if available, otherwise generates and stores a new one.
    *
-   * @returns Device fingerprint string (UUID-based, persisted)
+   * @returns Device fingerprint string (srv_ prefixed, persisted)
    */
   public getFingerprint(): string {
     // Return cached value if available
@@ -59,16 +59,15 @@ export class FingerprintManager {
 
   /**
    * Generate a unique fingerprint
-   * Format: UUID + timestamp (base36) + random string
+   * Format: srv_ + 32-char hex string (from UUID)
    *
    * @returns Generated fingerprint string
    */
   private generate(): string {
     const uuid = this.generateUUID();
-    const timestamp = Date.now().toString(36); // Compact timestamp
-    const random = Math.random().toString(36).substring(2, 15);
-
-    return `${uuid}-${timestamp}-${random}`;
+    // Remove hyphens and take first 32 chars, prefix with srv_
+    const hexPart = uuid.replace(/-/g, '').substring(0, 32);
+    return `srv_${hexPart}`;
   }
 
   /**
